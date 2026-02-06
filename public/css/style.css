@@ -141,7 +141,7 @@ body.ios-fullscreen #credit {
   margin-bottom: 1rem;
   text-align: center;
   padding: 0 20px;
-  max-width: 100%;
+  white-space: nowrap;
 }
 #start-screen p {
   font-size: 0.9rem;
@@ -383,8 +383,8 @@ body.ios-fullscreen #credit {
 }
 @media (max-width: 600px) {
   #start-screen h1 {
-    font-size: 1.2rem;
-    letter-spacing: 0.15em;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
   }
 }
 

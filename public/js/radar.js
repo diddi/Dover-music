@@ -87,7 +87,15 @@
             maxW = window.innerWidth;
         } else {
             maxH = window.innerHeight - 40;
-            maxW = wrap.clientWidth || window.innerWidth * 0.55;
+            // On mobile (portrait), use the full width minus some padding
+            const isMobile = window.innerWidth <= 900;
+            if (isMobile) {
+                maxW = window.innerWidth - 20;
+                // Leave room for info panel below (if visible)
+                maxH = window.innerHeight * 0.65;
+            } else {
+                maxW = wrap.clientWidth || window.innerWidth * 0.55;
+            }
         }
 
         const size = Math.min(maxW, maxH, isFullscreen ? 9999 : 700);
@@ -371,8 +379,12 @@
         animId = requestAnimationFrame(animate);
     }
 
-    // Click anywhere on start screen
+    // Click/tap anywhere on start screen
     startScreen.addEventListener('click', beginExperience);
+    startScreen.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        beginExperience();
+    });
 
     // --- Hover tooltip ---
     canvas.addEventListener('mousemove', (e) => {

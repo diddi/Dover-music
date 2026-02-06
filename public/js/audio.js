@@ -101,6 +101,10 @@ const DoverAudio = (() => {
     async function start() {
         if (started) return;
         await Tone.start();
+        // iOS Safari may need an explicit resume of the underlying AudioContext
+        if (Tone.context.state !== 'running') {
+            await Tone.context.resume();
+        }
         init();
         started = true;
     }

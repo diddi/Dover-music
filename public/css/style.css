@@ -202,20 +202,23 @@ body.ios-fullscreen #audio-toggle-btn {
 .info-section {
   padding-left: 8px;
 }
-.info-section.credit {
+
+#credit {
+  position: fixed;
+  bottom: 15px;
+  left: 20px;
   font-size: 0.7rem;
+  font-family: "Courier New", monospace;
   opacity: 0.3;
   letter-spacing: 0.05em;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 50;
 }
-.info-section.credit a {
+#credit a {
   color: #64ff96;
   text-decoration: none;
-  opacity: 0.8;
   transition: opacity 0.2s;
 }
-.info-section.credit a:hover {
+#credit a:hover {
   opacity: 1;
   text-decoration: underline;
 }

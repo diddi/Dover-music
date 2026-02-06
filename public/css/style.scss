@@ -238,24 +238,27 @@ body.ios-fullscreen {
 
 .info-section {
     padding-left: 8px;
+}
 
-    &.credit {
-        font-size: 0.7rem;
-        opacity: 0.3;
-        letter-spacing: 0.05em;
-        padding-top: 10px;
-        border-top: 1px solid rgba($white, 0.08);
+// --- Credit line ---
+#credit {
+    position: fixed;
+    bottom: 15px;
+    left: 20px;
+    font-size: 0.7rem;
+    @include mono;
+    opacity: 0.3;
+    letter-spacing: 0.05em;
+    z-index: 50;
 
-        a {
-            color: $accent;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.2s;
+    a {
+        color: $accent;
+        text-decoration: none;
+        transition: opacity 0.2s;
 
-            &:hover {
-                opacity: 1;
-                text-decoration: underline;
-            }
+        &:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
     }
 }

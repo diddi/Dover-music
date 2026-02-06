@@ -273,12 +273,14 @@
 
     function drawShips() {
         const ships = DoverShips.getShips();
+        let visibleCount = 0;
 
         for (const ship of ships) {
             const pos = DoverShips.toRadarPosition(ship);
             const dist = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
 
             if (dist > 1.05) continue;
+            visibleCount++;
 
             const sx = cx + pos.x * radius;
             const sy = cy + pos.y * radius;
@@ -298,6 +300,8 @@
             // Check sweep hit
             checkSweepHit(ship, pos, sx, sy, chevronSize);
         }
+
+        return visibleCount;
     }
 
     function checkSweepHit(ship, pos, sx, sy, size) {
@@ -356,11 +360,11 @@
         drawCoastline();
         drawRings();
         drawSweep();
-        drawShips();
+        const visibleCount = drawShips();
         drawCompass();
 
-        // Update UI
-        shipCountEl.textContent = DoverShips.getShips().length;
+        // Update UI — only count ships visible on radar
+        shipCountEl.textContent = visibleCount;
 
         animId = requestAnimationFrame(animate);
     }

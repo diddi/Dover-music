@@ -1,0 +1,28 @@
+# Dependencies
+/vendor/
+node_modules/
+
+# Cache & runtime data
+/data/*.json
+/data/*.log
+*.log
+
+# Config with secrets
+config.php
+
+# Compiled CSS (regenerate with: sass public/css/style.scss public/css/style.css)
+public/css/style.css
+public/css/style.css.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude
+.claude/

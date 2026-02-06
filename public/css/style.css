@@ -108,6 +108,9 @@ body.ios-fullscreen #fullscreen-btn,
 body.ios-fullscreen #audio-toggle-btn {
   z-index: 10001;
 }
+body.ios-fullscreen #credit {
+  z-index: 10001;
+}
 
 #start-screen {
   position: absolute;
@@ -134,7 +137,8 @@ body.ios-fullscreen #audio-toggle-btn {
   letter-spacing: 0.3em;
   padding-left: 0.3em;
   margin-bottom: 1rem;
-  white-space: nowrap;
+  text-align: center;
+  padding: 0 20px;
 }
 #start-screen p {
   font-size: 0.9rem;

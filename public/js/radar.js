@@ -479,23 +479,29 @@
         audioToggleBtn.classList.toggle('active', debugPanel.classList.contains('visible'));
     });
 
-    // --- Fullscreen (with iOS Safari fallback) ---
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
+    // --- Fullscreen (with CSS fallback for browsers without Fullscreen API) ---
     fullscreenBtn.addEventListener('click', () => {
         const container = document.getElementById('canvas-container');
 
-        if (isIOS) {
-            // iOS doesn't support Fullscreen API — use CSS-based pseudo-fullscreen
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+            // Already in native fullscreen — exit
+            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        } else if (document.body.classList.contains('ios-fullscreen')) {
+            // Already in CSS fullscreen — exit
+            document.body.classList.remove('ios-fullscreen');
+            resize();
+        } else if (container.requestFullscreen) {
+            container.requestFullscreen().catch(() => {
+                // Fullscreen API rejected — fall back to CSS
+                document.body.classList.toggle('ios-fullscreen');
+                resize();
+            });
+        } else if (container.webkitRequestFullscreen) {
+            container.webkitRequestFullscreen();
+        } else {
+            // No Fullscreen API available (iOS Safari) — use CSS fallback
             document.body.classList.toggle('ios-fullscreen');
             resize();
-        } else if (document.fullscreenElement || document.webkitFullscreenElement) {
-            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-        } else {
-            const rfs = container.requestFullscreen
-                || container.webkitRequestFullscreen;
-            if (rfs) rfs.call(container).catch(() => {});
         }
     });
 

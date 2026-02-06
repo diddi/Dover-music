@@ -55,11 +55,11 @@ canvas {
     display: block;
 }
 
-// --- Fullscreen button ---
-#fullscreen-btn {
+// --- Canvas overlay buttons ---
+#fullscreen-btn,
+#audio-toggle-btn {
     position: absolute;
     bottom: 10px;
-    right: 10px;
     width: 36px;
     height: 36px;
     background: rgba($white, 0.1);
@@ -78,6 +78,57 @@ canvas {
         background: rgba($white, 0.15);
         color: rgba($accent, 0.8);
         border-color: rgba($accent, 0.3);
+    }
+}
+
+#fullscreen-btn {
+    right: 10px;
+}
+
+#audio-toggle-btn {
+    right: 52px;
+    font-size: 18px;
+
+    &.active {
+        color: $accent;
+        border-color: rgba($accent, 0.4);
+        background: rgba($accent, 0.1);
+    }
+}
+
+// --- iOS pseudo-fullscreen ---
+body.ios-fullscreen {
+    #main-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        padding: 0;
+        margin: 0;
+    }
+
+    #canvas-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $bg;
+    }
+
+    #info-panel {
+        display: none;
+    }
+
+    #zone-indicator {
+        z-index: 10001;
+    }
+
+    #fullscreen-btn,
+    #audio-toggle-btn {
+        z-index: 10001;
     }
 }
 
@@ -187,6 +238,26 @@ canvas {
 
 .info-section {
     padding-left: 8px;
+
+    &.credit {
+        font-size: 0.7rem;
+        opacity: 0.3;
+        letter-spacing: 0.05em;
+        padding-top: 10px;
+        border-top: 1px solid rgba($white, 0.08);
+
+        a {
+            color: $accent;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 #ship-count {

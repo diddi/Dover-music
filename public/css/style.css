@@ -38,10 +38,10 @@ canvas {
   display: block;
 }
 
-#fullscreen-btn {
+#fullscreen-btn,
+#audio-toggle-btn {
   position: absolute;
   bottom: 10px;
-  right: 10px;
   width: 36px;
   height: 36px;
   background: rgba(255, 255, 255, 0.1);
@@ -56,10 +56,54 @@ canvas {
   justify-content: center;
   z-index: 5;
 }
-#fullscreen-btn:hover {
+#fullscreen-btn:hover,
+#audio-toggle-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   color: rgba(100, 255, 150, 0.8);
   border-color: rgba(100, 255, 150, 0.3);
+}
+
+#fullscreen-btn {
+  right: 10px;
+}
+
+#audio-toggle-btn {
+  right: 52px;
+  font-size: 18px;
+}
+#audio-toggle-btn.active {
+  color: #64ff96;
+  border-color: rgba(100, 255, 150, 0.4);
+  background: rgba(100, 255, 150, 0.1);
+}
+
+body.ios-fullscreen #main-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  padding: 0;
+  margin: 0;
+}
+body.ios-fullscreen #canvas-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+}
+body.ios-fullscreen #info-panel {
+  display: none;
+}
+body.ios-fullscreen #zone-indicator {
+  z-index: 10001;
+}
+body.ios-fullscreen #fullscreen-btn,
+body.ios-fullscreen #audio-toggle-btn {
+  z-index: 10001;
 }
 
 #start-screen {
@@ -157,6 +201,23 @@ canvas {
 
 .info-section {
   padding-left: 8px;
+}
+.info-section.credit {
+  font-size: 0.7rem;
+  opacity: 0.3;
+  letter-spacing: 0.05em;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.info-section.credit a {
+  color: #64ff96;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.info-section.credit a:hover {
+  opacity: 1;
+  text-decoration: underline;
 }
 
 #ship-count {
@@ -294,3 +355,5 @@ canvas {
     max-width: 400px;
   }
 }
+
+/*# sourceMappingURL=style.css.map */

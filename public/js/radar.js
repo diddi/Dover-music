@@ -21,6 +21,7 @@
     const tooltip = document.getElementById('hover-tooltip');
     const debugPanel = document.getElementById('debug-panel');
     const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const audioToggleBtn = document.getElementById('audio-toggle-btn');
 
     // --- State ---
     const RING_COUNT = DoverAudio.RING_COUNT;
@@ -74,10 +75,22 @@
     ];
 
     function resize() {
+        const isFullscreen = document.fullscreenElement
+            || document.webkitFullscreenElement
+            || document.body.classList.contains('ios-fullscreen');
+
         const wrap = canvas.parentElement;
-        const maxH = window.innerHeight - 40;
-        const maxW = wrap.clientWidth || window.innerWidth * 0.55;
-        const size = Math.min(maxW, maxH, 700);
+        let maxH, maxW;
+
+        if (isFullscreen) {
+            maxH = window.innerHeight;
+            maxW = window.innerWidth;
+        } else {
+            maxH = window.innerHeight - 40;
+            maxW = wrap.clientWidth || window.innerWidth * 0.55;
+        }
+
+        const size = Math.min(maxW, maxH, isFullscreen ? 9999 : 700);
         canvas.width = size;
         canvas.height = size;
         cx = size / 2;
@@ -397,6 +410,7 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'd' || e.key === 'D') {
             debugPanel.classList.toggle('visible');
+            audioToggleBtn.classList.toggle('active', debugPanel.classList.contains('visible'));
         }
     });
 
@@ -447,13 +461,29 @@
         );
     }
 
-    // --- Fullscreen ---
+    // --- Audio toggle button (mobile-friendly alternative to D key) ---
+    audioToggleBtn.addEventListener('click', () => {
+        debugPanel.classList.toggle('visible');
+        audioToggleBtn.classList.toggle('active', debugPanel.classList.contains('visible'));
+    });
+
+    // --- Fullscreen (with iOS Safari fallback) ---
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
     fullscreenBtn.addEventListener('click', () => {
         const container = document.getElementById('canvas-container');
-        if (document.fullscreenElement) {
-            document.exitFullscreen();
+
+        if (isIOS) {
+            // iOS doesn't support Fullscreen API — use CSS-based pseudo-fullscreen
+            document.body.classList.toggle('ios-fullscreen');
+            resize();
+        } else if (document.fullscreenElement || document.webkitFullscreenElement) {
+            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
         } else {
-            container.requestFullscreen().catch(() => {});
+            const rfs = container.requestFullscreen
+                || container.webkitRequestFullscreen;
+            if (rfs) rfs.call(container).catch(() => {});
         }
     });
 
@@ -469,5 +499,7 @@
     }
 
     window.addEventListener('resize', resize);
+    document.addEventListener('fullscreenchange', resize);
+    document.addEventListener('webkitfullscreenchange', resize);
     window.addEventListener('DOMContentLoaded', init);
 })();

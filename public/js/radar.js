@@ -94,8 +94,8 @@
                 // Leave room for info panel below (if visible)
                 maxH = window.innerHeight * 0.65;
             } else {
-                // Desktop: leave room for info panel (≈440px) + gaps
-                maxW = window.innerWidth - 500;
+                // Desktop: leave room for info panel (400px) + gap (40px) + padding (60px) + breathing room
+                maxW = window.innerWidth - 540;
             }
         }
 

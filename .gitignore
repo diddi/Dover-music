@@ -10,8 +10,7 @@ node_modules/
 # Config with secrets
 config.php
 
-# Compiled CSS (regenerate with: sass public/css/style.scss public/css/style.css)
-public/css/style.css
+# Source maps
 public/css/style.css.map
 
 # OS files

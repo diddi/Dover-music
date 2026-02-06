@@ -94,11 +94,12 @@
                 // Leave room for info panel below (if visible)
                 maxH = window.innerHeight * 0.65;
             } else {
-                maxW = wrap.clientWidth || window.innerWidth * 0.55;
+                // Desktop: leave room for info panel (≈440px) + gaps
+                maxW = window.innerWidth - 500;
             }
         }
 
-        const size = Math.min(maxW, maxH, isFullscreen ? 9999 : 700);
+        const size = Math.min(maxW, maxH);
         canvas.width = size;
         canvas.height = size;
         cx = size / 2;

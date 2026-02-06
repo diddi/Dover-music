@@ -24,6 +24,7 @@ body {
     @include mono;
     overflow: hidden;
     height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,6 +105,7 @@ body.ios-fullscreen {
         left: 0;
         width: 100vw;
         height: 100vh;
+        height: 100dvh;
         z-index: 9999;
         padding: 0;
         margin: 0;
@@ -112,6 +114,7 @@ body.ios-fullscreen {
     #canvas-container {
         width: 100vw;
         height: 100vh;
+        height: 100dvh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -128,6 +131,10 @@ body.ios-fullscreen {
 
     #fullscreen-btn,
     #audio-toggle-btn {
+        z-index: 10001;
+    }
+
+    #credit {
         z-index: 10001;
     }
 }
@@ -157,9 +164,10 @@ body.ios-fullscreen {
         font-size: 2rem;
         font-weight: 300;
         letter-spacing: 0.3em;
-        padding-left: 0.3em;
         margin-bottom: 1rem;
-        white-space: nowrap;
+        text-align: center;
+        padding: 0 20px;
+        max-width: 100%;
     }
 
     p {
@@ -245,11 +253,13 @@ body.ios-fullscreen {
     position: fixed;
     bottom: 15px;
     left: 20px;
+    right: auto;
     font-size: 0.7rem;
     @include mono;
     opacity: 0.3;
     letter-spacing: 0.05em;
     z-index: 50;
+    white-space: nowrap;
 
     a {
         color: $accent;
@@ -406,10 +416,29 @@ body.ios-fullscreen {
     #main-container {
         flex-direction: column;
         gap: 20px;
+        overflow-y: auto;
+        max-height: 100vh;
+        max-height: 100dvh;
     }
 
     #info-panel {
         width: 100%;
         max-width: 400px;
+    }
+}
+
+@media (max-width: 900px) and (max-height: 700px) {
+    #info-panel {
+        display: none;
+    }
+    #main-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    #start-screen h1 {
+        font-size: 1.2rem;
+        letter-spacing: 0.15em;
     }
 }
